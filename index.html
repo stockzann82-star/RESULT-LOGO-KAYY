@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#09090b">
+  <title>Logo Result Gallery</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div id="loader" class="loader">
+    <div class="loader-logo">LR</div>
+    <div class="loader-text">LOADING RESULTS</div>
+    <div class="loader-bar"><span></span></div>
+  </div>
+
+  <main>
+    <nav class="nav">
+      <div class="brand"><span>LR</span> Logo Result</div>
+      <a href="#gallery">Gallery</a>
+    </nav>
+
+    <section class="hero">
+      <div class="eyebrow">✦ LOGO SHOWCASE</div>
+      <h1>My <span>Logo</span><br>Result Gallery.</h1>
+      <p>Kumpulan hasil logo dan desain yang sudah selesai. Klik salah satu result untuk melihat versi penuh.</p>
+      <a class="hero-btn" href="#gallery">Explore Results <b>↓</b></a>
+    </section>
+
+    <section id="gallery" class="gallery-section">
+      <div class="section-head">
+        <div>
+          <small>PORTFOLIO</small>
+          <h2>Latest Results</h2>
+        </div>
+        <span id="count">0 RESULTS</span>
+      </div>
+      <div id="gallery-grid" class="gallery-grid"></div>
+    </section>
+
+    <footer>
+      <span>© 2026 Logo Result Gallery</span>
+      <span>Made for showcasing designs.</span>
+    </footer>
+  </main>
+
+  <div id="modal" class="modal">
+    <button id="close" class="close">×</button>
+    <div class="modal-card">
+      <img id="modal-img" src="" alt="">
+      <div class="modal-info">
+        <div>
+          <small id="modal-number"></small>
+          <h3 id="modal-title"></h3>
+        </div>
+        <a id="download" class="download" href="" download>Download PNG ↓</a>
+      </div>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
