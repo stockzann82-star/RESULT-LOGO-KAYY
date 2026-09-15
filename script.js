@@ -12,95 +12,68 @@ const results = [
 ];
 
 const grid = document.getElementById("gallery-grid");
-const modal = document.getElementById("image-modal");
-const modalImage = document.getElementById("modal-image");
+const count = document.getElementById("count");
+const modal = document.getElementById("modal");
+const modalImg = document.getElementById("modal-img");
 const modalTitle = document.getElementById("modal-title");
-const downloadBtn = document.getElementById("download-btn");
-const closeBtn = document.getElementById("modal-close");
-const loader = document.getElementById("loader");
+const modalNumber = document.getElementById("modal-number");
+const download = document.getElementById("download");
 
 function render() {
-  if (!grid) return;
-
+  count.textContent = `${results.length} RESULTS`;
   grid.innerHTML = "";
 
-  results.forEach((result, index) => {
+  results.forEach((item, index) => {
     const card = document.createElement("article");
-    card.className = "result-card";
+    card.className = "card";
 
     card.innerHTML = `
-      <div class="result-image-wrap">
-        <img
-          src="${result.image}"
-          alt="${result.title}"
-          loading="lazy"
-          onerror="this.style.display='none'; this.parentElement.classList.add('image-error');"
-        >
-        <div class="image-error-text">Image tidak ditemukan</div>
+      <div class="thumb">
+        <img src="${item.image}" alt="${item.title}" loading="lazy">
       </div>
-
-      <div class="result-info">
-        <h3>${result.title}</h3>
-        <button class="view-btn" type="button">View</button>
+      <div class="card-info">
+        <small>RESULT ${String(index + 1).padStart(2, "0")}</small>
+        <h3>${item.title}</h3>
       </div>
     `;
 
-    const viewBtn = card.querySelector(".view-btn");
-
-    viewBtn.addEventListener("click", () => {
-      openModal(result);
-    });
-
+    card.addEventListener("click", () => openModal(item, index));
     grid.appendChild(card);
   });
 }
 
-function openModal(result) {
-  if (!modal || !modalImage) return;
-
-  modalImage.src = result.image;
-
-  if (modalTitle) {
-    modalTitle.textContent = result.title;
-  }
-
-  if (downloadBtn) {
-    downloadBtn.href = result.image;
-    downloadBtn.download = result.title.replace(/\s+/g, "-") + ".jpg";
-  }
-
-  modal.classList.add("active");
-  document.body.classList.add("modal-open");
+function openModal(item, index) {
+  modalImg.src = item.image;
+  modalImg.alt = item.title;
+  modalTitle.textContent = item.title;
+  modalNumber.textContent = `RESULT ${String(index + 1).padStart(2, "0")}`;
+  download.href = item.image;
+  download.download = item.title.replace(/\s+/g, "-").toLowerCase() + ".jpg";
+  modal.classList.add("show");
 }
 
 function closeModal() {
-  if (!modal) return;
-
-  modal.classList.remove("active");
-  document.body.classList.remove("modal-open");
-
-  if (modalImage) {
-    modalImage.src = "";
-  }
+  modal.classList.remove("show");
+  modalImg.src = "";
 }
 
-if (closeBtn) {
-  closeBtn.addEventListener("click", closeModal);
-}
+document.getElementById("close").addEventListener("click", closeModal);
 
-if (modal) {
-  modal.addEventListener("click", (event) => {
-    if (event.target === modal) {
-      closeModal();
-    }
-  });
-}
-
-document.addEventListener("keydown", (event) => {
-  if (event.key === "Escape") {
-    closeModal();
-  }
+modal.addEventListener("click", e => {
+  if (e.target === modal) closeModal();
 });
+
+document.addEventListener("keydown", e => {
+  if (e.key === "Escape") closeModal();
+});
+
+render();
+
+window.addEventListener("load", () => {
+  setTimeout(() => {
+    document.getElementById("loader").classList.add("hide");
+  }, 900);
+});});
 
 window.addEventListener("load", () => {
   render();
